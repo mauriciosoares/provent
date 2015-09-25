@@ -4,7 +4,7 @@
   "description": "Promises and Events... combined.",
   "main": "index.js",
   "scripts": {
-    "test": "browserify tests/provent.js | testling",
+    "test": "node tests/provent.js -b -l phantom -q -e",
     "watch": "watchify src/provent.js -o dist/provent.js -v"
   },
   "keywords": [
@@ -16,7 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "browserify": "^11.2.0",
-    "tape": "^4.2.0",
+    "prova": "^2.1.2",
     "testling": "^1.7.1",
     "watchify": "^3.4.0"
   }
