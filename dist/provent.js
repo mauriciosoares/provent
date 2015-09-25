@@ -7,9 +7,12 @@ Promise.prototype.then = function(callback) {
   this.callbacks.push(callback);
 };
 
-Promise.prototype.trigger = function() {
-  console.log(this.callbacks);
-  console.log(arguments);
+Promise.prototype.trigger = function(params, context) {
+  this.callbacks.forEach(this.triggerCallback.bind(this, params, context));
+};
+
+Promise.prototype.triggerCallback = function(params, context, callback) {
+  callback.apply(context, params);
 }
 
 module.exports = Promise;
@@ -24,7 +27,7 @@ function Provent(element, event) {
   var promise = new Promise();
 
   element.addEventListener(event, function() {
-    promise.trigger.apply(promise, toArray(arguments));
+    promise.trigger.call(promise, toArray(arguments), this);
   });
 
   return promise;

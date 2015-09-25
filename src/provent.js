@@ -7,7 +7,7 @@ function Provent(element, event) {
   var promise = new Promise();
 
   element.addEventListener(event, function() {
-    promise.trigger.apply(promise, toArray(arguments));
+    promise.trigger.call(promise, toArray(arguments), this);
   });
 
   return promise;
