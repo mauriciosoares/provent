@@ -1,13 +1,38 @@
 describe('test', function() {
+  var testContainer;
+
+  function addLink() {
+    var link = document.createElement('a');
+    testContainer.appendChild(link);
+
+    return link;
+  }
+
   beforeEach(function() {
-    // console.log(document);
+    testContainer = document.createElement('div');
+    testContainer.id = 'test-container';
+
+    document.body.appendChild(testContainer);
+  });
+
+  afterEach(function() {
+    testContainer.parentNode.removeChild(testContainer);
   });
 
   it('should trigger the `then` once the button is clicked', function() {
-    expect(true).toBe(true);
-  });
+    var link = addLink();
+    var callback = {
+      test: function() {}
+    };
 
-  it('huebrbr', function() {
-    expect(true).toBe(false);
+    spyOn(callback, 'test');
+
+    Provent(link, 'click').then(function() {
+      callback.test();
+    });
+    click(link);
+    // link.click();
+
+    expect(callback.test).toHaveBeenCalled();
   });
 });

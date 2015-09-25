@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'tests/polyfills/*.js',
       'dist/provent.js',
       'tests/*Spec.js'
     ],
