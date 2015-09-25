@@ -4,9 +4,7 @@
   "description": "Promises and Events... combined.",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/provent.js -b -l phantom -q -e",
-    "test-b": "node tests/provent.js -b -l phantom -e",
-    "watch": "watchify src/provent.js -o dist/provent.js -v"
+    "test": "jasmine-node tests"
   },
   "keywords": [
     "promises",
@@ -17,8 +15,7 @@
   "license": "MIT",
   "devDependencies": {
     "browserify": "^11.2.0",
-    "prova": "^2.1.2",
-    "testling": "^1.7.1",
+    "jasmine-node": "^1.14.5",
     "watchify": "^3.4.0"
   }
 }
