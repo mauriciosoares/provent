@@ -4,10 +4,10 @@ var toArray = require('./toArray');
 function Provent(element, event) {
   if(!event) throw new Error('You must choose an event');
 
-  var promise = new Promise();
+  var promise = Promise();
 
   element.addEventListener(event, function() {
-    promise.trigger.call(promise, toArray(arguments), this);
+    promise._trigger.call(promise, toArray(arguments), this);
   });
 
   return promise;

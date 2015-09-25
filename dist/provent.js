@@ -1,19 +1,27 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function Promise() {
-  this.callbacks = [];
+  var callbacks = [];
+
+  function then(callback) {
+    callbacks.push(callback);
+
+    return then;
+  };
+
+  function trigger(params, context) {
+    callbacks.forEach(triggerCallback.bind(this, params, context));
+  };
+
+  function triggerCallback(params, context, callback) {
+    callback.apply(context, params);
+  }
+
+  return {
+    _trigger: trigger,
+    then: then
+  }
 }
 
-Promise.prototype.then = function(callback) {
-  this.callbacks.push(callback);
-};
-
-Promise.prototype.trigger = function(params, context) {
-  this.callbacks.forEach(this.triggerCallback.bind(this, params, context));
-};
-
-Promise.prototype.triggerCallback = function(params, context, callback) {
-  callback.apply(context, params);
-}
 
 module.exports = Promise;
 
@@ -24,10 +32,10 @@ var toArray = require('./toArray');
 function Provent(element, event) {
   if(!event) throw new Error('You must choose an event');
 
-  var promise = new Promise();
+  var promise = Promise();
 
   element.addEventListener(event, function() {
-    promise.trigger.call(promise, toArray(arguments), this);
+    promise._trigger.call(promise, toArray(arguments), this);
   });
 
   return promise;

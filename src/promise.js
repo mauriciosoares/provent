@@ -1,17 +1,25 @@
 function Promise() {
-  this.callbacks = [];
+  var callbacks = [];
+
+  function then(callback) {
+    callbacks.push(callback);
+
+    return then;
+  };
+
+  function trigger(params, context) {
+    callbacks.forEach(triggerCallback.bind(this, params, context));
+  };
+
+  function triggerCallback(params, context, callback) {
+    callback.apply(context, params);
+  }
+
+  return {
+    _trigger: trigger,
+    then: then
+  }
 }
 
-Promise.prototype.then = function(callback) {
-  this.callbacks.push(callback);
-};
-
-Promise.prototype.trigger = function(params, context) {
-  this.callbacks.forEach(this.triggerCallback.bind(this, params, context));
-};
-
-Promise.prototype.triggerCallback = function(params, context, callback) {
-  callback.apply(context, params);
-}
 
 module.exports = Promise;
