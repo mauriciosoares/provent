@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node tests/provent.js -b -l phantom -q -e",
+    "test-b": "node tests/provent.js -b -l phantom -e",
     "watch": "watchify src/provent.js -o dist/provent.js -v"
   },
   "keywords": [

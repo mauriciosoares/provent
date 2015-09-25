@@ -13,4 +13,6 @@ function Provent(element, event) {
   return promise;
 }
 
-window.Provent = window.Provent || Provent;
+global.Provent = Provent;
+
+module.exports = Provent;

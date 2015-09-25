@@ -31,6 +31,7 @@ function Promise() {
 module.exports = Promise;
 
 },{}],3:[function(require,module,exports){
+(function (global){
 var Promise = require('./promise');
 var toArray = require('./helpers/toArray');
 
@@ -46,6 +47,9 @@ function Provent(element, event) {
   return promise;
 }
 
-window.Provent = window.Provent || Provent;
+global.Provent = Provent;
 
+module.exports = Provent;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./helpers/toArray":1,"./promise":2}]},{},[3]);
