@@ -1,0 +1,23 @@
+{
+  "name": "provent",
+  "version": "0.0.1",
+  "description": "Promises and Events... combined.",
+  "main": "index.js",
+  "scripts": {
+    "test": "browserify tests/provent.js | testling",
+    "watch": "watchify src/provent.js -o dist/provent.js -v"
+  },
+  "keywords": [
+    "promises",
+    "events",
+    "dom"
+  ],
+  "author": "Mauricio Soares",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^11.2.0",
+    "tape": "^4.2.0",
+    "testling": "^1.7.1",
+    "watchify": "^3.4.0"
+  }
+}

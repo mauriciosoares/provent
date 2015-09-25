@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <a href="#">link test</a>
+  <script src="../dist/provent.js"></script>
+  <script>
+    var aClick = Provent(document.querySelector('a'), 'click');
+
+    aClick.then(function(event) {
+      event.preventDefault();
+    });
+  </script>
+</body>
+</html>
