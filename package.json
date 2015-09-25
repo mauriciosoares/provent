@@ -4,7 +4,7 @@
   "description": "Promises and Events... combined.",
   "main": "index.js",
   "scripts": {
-    "test": "",
+    "test": "karma start test.conf.js",
     "watch": "watchify src/provent.js -o dist/provent.js -v"
   },
   "keywords": [
