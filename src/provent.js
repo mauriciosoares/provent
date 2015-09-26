@@ -10,7 +10,10 @@ function Provent(element, event) {
     promise._trigger.call(promise, toArray(arguments), this);
   });
 
-  return promise;
+  return {
+    then: promise.then,
+    initial: true
+  };
 }
 
 global.Provent = Provent;

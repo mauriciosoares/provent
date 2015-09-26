@@ -1,17 +1,32 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports = function() {
+  return (+new Date * Math.random()).toString(36).substring(0,10);
+};
+
+},{}],2:[function(require,module,exports){
 module.exports = function toArray(arrayLike) {
   return Array.prototype.slice.call(arrayLike);
 }
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
+var id = require('./helpers/id');
+
 function Promise() {
   var callbacks = [];
 
   function then(callback) {
+    var callbackId = (this.initial) ? id() : this;
+
     callbacks.push(callback);
 
-    return then;
+    console.log(callbackId);
+
+    return {
+      then: then.bind(callbackId)
+    };
   };
+
+  var prev;
 
   function trigger(params, context) {
     callbacks.forEach(triggerCallback.bind(this, params, context));
@@ -30,7 +45,7 @@ function Promise() {
 
 module.exports = Promise;
 
-},{}],3:[function(require,module,exports){
+},{"./helpers/id":1}],4:[function(require,module,exports){
 (function (global){
 var Promise = require('./promise');
 var toArray = require('./helpers/toArray');
@@ -44,7 +59,10 @@ function Provent(element, event) {
     promise._trigger.call(promise, toArray(arguments), this);
   });
 
-  return promise;
+  return {
+    then: promise.then,
+    initial: true
+  };
 }
 
 global.Provent = Provent;
@@ -52,4 +70,4 @@ global.Provent = Provent;
 module.exports = Provent;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./helpers/toArray":1,"./promise":2}]},{},[3]);
+},{"./helpers/toArray":2,"./promise":3}]},{},[4]);
