@@ -1,4 +1,4 @@
-describe('test', function() {
+describe('Testing Provent', function() {
   var testContainer;
 
   function addLink() {
@@ -21,18 +21,121 @@ describe('test', function() {
 
   it('should trigger the `then` once the button is clicked', function() {
     var link = addLink();
-    var callback = {
-      test: function() {}
+    var spy = {
+      callback: function() {}
     };
 
-    spyOn(callback, 'test');
+    spyOn(spy, 'callback');
 
     Provent(link, 'click').then(function() {
-      callback.test();
+      spy.callback();
     });
     click(link);
-    // link.click();
 
-    expect(callback.test).toHaveBeenCalled();
+    expect(spy.callback).toHaveBeenCalled();
+  });
+
+  it('should trigger the `then` callback everytime it is used', function() {
+    var link = addLink();
+    var spy = {
+      callback1: function() {},
+      callback2: function() {}
+    };
+
+    spyOn(spy, 'callback1');
+    spyOn(spy, 'callback2');
+
+    Provent(link, 'click').then(function() {
+      spy.callback1();
+    });
+
+    Provent(link, 'click').then(function() {
+      spy.callback2();
+    });
+
+    click(link);
+
+    expect(spy.callback1).toHaveBeenCalled();
+    expect(spy.callback2).toHaveBeenCalled();
+  });
+
+  it('`this` inside `then` callback should point to the element', function() {
+    var link = addLink();
+
+    Provent(link, 'click').then(function() {
+      expect(this).toBe(link);
+    });
+
+    click(link);
+  });
+
+  it('`arguments[0]` inside `then` callback should point to the event object', function() {
+    var link = addLink();
+    var linkEvent;
+
+    link.addEventListener('click', function(e) {
+      linkEvent = e;
+    })
+
+    Provent(link, 'click').then(function(proventEvent) {
+      expect(proventEvent).toBe(linkEvent);
+    });
+
+    click(link);
+  });
+
+  it('concatenated `then` calls should get the previous return', function() {
+    var link = addLink();
+
+    Provent(link, 'click').then(function() {
+      return true;
+    }).then(function(param) {
+      expect(param).toBe(true);
+    });
+
+    click(link);
+  });
+
+  it('should remove the listener when `reject` is used', function() {
+    var link = addLink();
+    var spy = {
+      callback: function() {}
+    };
+
+    spyOn(spy, 'callback');
+
+    var promise = Provent(link, 'click').then(function() {
+      spy.callback();
+    }).reject();
+
+    click(link);
+
+    expect(spy.callback).not.toHaveBeenCalled();
+  });
+
+  it('should remove the listener from a specific promise when `Provent.reject` is used passing an id', function() {
+    var link = addLink();
+    var spy = {
+      callback1: function() {},
+      callback2: function() {}
+    };
+
+    spyOn(spy, 'callback1');
+    spyOn(spy, 'callback2');
+
+    Provent(link, 'click').then('#id', function() {
+      spy.callback1();
+    });
+
+    Provent(link, 'click').then(function() {
+      spy.callback2();
+    });
+
+    Provent.reject('#id');
+
+    click(link);
+
+    expect(spy.callback1).not.toHaveBeenCalled();
+    expect(spy.callback2).toHaveBeenCalled();
   });
 });
