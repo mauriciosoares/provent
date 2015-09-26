@@ -15,8 +15,6 @@ function Promise() {
     };
   };
 
-  var prev;
-
   function trigger(params, context) {
     for(id in callbacks) {
       callbacks[id].forEach(triggerCallback.bind(this, params, context));
