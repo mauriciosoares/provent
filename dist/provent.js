@@ -9,22 +9,14 @@ module.exports = function toArray(arrayLike) {
 }
 
 },{}],3:[function(require,module,exports){
-var id = require('./helpers/id');
+var i = require('./helpers/id');
 
 function Promise() {
   var callbacks = {};
   var callbackReturn;
 
   function then(callback) {
-    console.log('before');
-    // console.log(Date);
-    // console.log(Math);
-    console.log(id());
-    console.log(id());
-    console.log('before2');
-    var callbackId = (this.initial) ? id() : this;
-    console.log(callbackId);
-    console.log('after');
+    var callbackId = (this.initial) ? i() : this;
 
     callbacks[callbackId] = callbacks[callbackId] || [];
     callbacks[callbackId].push(callback);
