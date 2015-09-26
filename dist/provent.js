@@ -12,14 +12,22 @@ module.exports = function toArray(arrayLike) {
 var id = require('./helpers/id');
 
 function Promise() {
-  var callbacks = [];
+  var callbacks = {};
+  var callbackReturn;
 
   function then(callback) {
+    console.log('before');
+    // console.log(Date);
+    // console.log(Math);
+    console.log(id());
+    console.log(id());
+    console.log('before2');
     var callbackId = (this.initial) ? id() : this;
-
-    callbacks.push(callback);
-
     console.log(callbackId);
+    console.log('after');
+
+    callbacks[callbackId] = callbacks[callbackId] || [];
+    callbacks[callbackId].push(callback);
 
     return {
       then: then.bind(callbackId)
@@ -29,11 +37,13 @@ function Promise() {
   var prev;
 
   function trigger(params, context) {
-    callbacks.forEach(triggerCallback.bind(this, params, context));
+    for(id in callbacks) {
+      callbacks[id].forEach(triggerCallback.bind(this, params, context));
+    }
   };
 
-  function triggerCallback(params, context, callback) {
-    callback.apply(context, params);
+  function triggerCallback(params, context, callback, index) {
+    callbackReturn = callback.apply(context, ((index > 0) ? [callbackReturn] : params));
   }
 
   return {

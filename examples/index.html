@@ -10,21 +10,20 @@
   <script src="../dist/provent.js"></script>
   <script>
     var aClick = Provent(document.querySelector('#a1'), 'click');
-    var a2Click = Provent(document.querySelector('#a2'), 'click');
 
-    a2Click.then(function() {
-      console.log('a2');
+    var aClick = Provent(document.querySelector('#a1'), 'click');
+
+    aClick.then(function(param) {
+      console.log(param);
+      return true;
+    }).then(function(param) {
+      console.log(param);
+    }).then(function(param) {
+      console.log(param);
+      return false;
+    }).then(function(param) {
+      console.log(param);
     })
-
-    var b = aClick.then(function(event) {
-      console.log('1');
-    }).then(function() {
-      console.log('3');
-    });
-
-    aClick.then(function(event) {
-      console.log('2');
-    });
   </script>
 </body>
 </html>
