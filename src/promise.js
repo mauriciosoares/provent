@@ -3,6 +3,7 @@ var i = require('./helpers/id');
 function Promise() {
   var callbacks = {};
   var callbackReturn;
+  var reject;
 
   function then(callback) {
     var callbackId = (this.initial) ? i() : this;
@@ -11,7 +12,8 @@ function Promise() {
     callbacks[callbackId].push(callback);
 
     return {
-      then: then.bind(callbackId)
+      then: then.bind(callbackId),
+      reject: reject
     };
   };
 
@@ -25,8 +27,22 @@ function Promise() {
     callbackReturn = callback.apply(context, ((index > 0) ? [callbackReturn] : params));
   }
 
+
+  function setRejectContext(context) {
+    reject = function(id) {
+      if(id) return;
+
+      this.element.removeEventListener(this.event, this.handler);
+      callbacks = {};
+    }.bind(context);
+
+    return reject;
+  }
+
   return {
     _trigger: trigger,
+    reject: reject,
+    setRejectContext: setRejectContext,
     then: then
   }
 }

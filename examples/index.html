@@ -6,12 +6,9 @@
 </head>
 <body>
   <a id="a1" href="#">link test</a>
-  <a id="a2" href="#">link test</a>
   <script src="../dist/provent.js"></script>
   <script>
-    var aClick = Provent(document.querySelector('#a1'), 'click');
-
-    var aClick = Provent(document.querySelector('#a1'), 'click');
+    var aClick = Provent(document.querySelector('#a1'), 'mouseover')
 
     aClick.then(function(param) {
       console.log(param);
@@ -23,7 +20,8 @@
       return false;
     }).then(function(param) {
       console.log(param);
-    })
+    });
+
   </script>
 </body>
 </html>

@@ -106,7 +106,9 @@ describe('Testing Provent', function() {
 
     var promise = Provent(link, 'click').then(function() {
       spy.callback();
-    }).reject();
+    })
+
+    promise.reject();
 
     click(link);
 
