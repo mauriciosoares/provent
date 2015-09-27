@@ -40,7 +40,10 @@ function Promise() {
     reject = function(id) {
       if(id) return removeThenCallback(id);
 
-      this.element.removeEventListener(this.event, this.handler);
+      this.elements.forEach(function(element) {
+        element.removeEventListener(this.event, this.handler);
+      }.bind(this));
+
       callbacks = {};
     }.bind(context);
 

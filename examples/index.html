@@ -6,12 +6,13 @@
 </head>
 <body>
   <a id="a1" href="#">link test</a>
+  <a id="a1" href="#">link test</a>
   <script src="../dist/provent.js"></script>
   <script>
-    var aClick = Provent(document.querySelector('#a1'), 'mouseover')
+    var aClick = Provent(document.querySelectorAll('a'), 'click')
 
     aClick.then(function() {
-      console.log('separado---');
+      console.log(this);
     });
 
     aClick.then(function(param) {
@@ -26,7 +27,7 @@
       console.log('last',param);
     });
 
-    aClick.reject('#toRemove');
+    aClick.reject();
   </script>
 </body>
 </html>
