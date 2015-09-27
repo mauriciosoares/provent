@@ -13,7 +13,7 @@
     "dom"
   ],
   "author": "Mauricio Soares",
-  "license": "MIT",
+  "license": "Beerware",
   "devDependencies": {
     "browserify": "^11.2.0",
     "jasmine-core": "^2.3.4",
