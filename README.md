@@ -2,6 +2,16 @@
 
 Promises and Events... combined.
 
+## Install
+
+Install it via Bower or NPM.
+
+```
+bower install provent
+
+npm install provent
+```
+
 ## Why?
 
 To provide a promise like syntax for attaching handlers to the DOM.
