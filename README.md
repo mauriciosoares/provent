@@ -103,7 +103,7 @@ var aClick = Provent(document.querySelector('a'), 'click');
 
 aClick.then(function(param) {
   // will not be triggered
-}).then(function(param) { // notice the first is a "string id"
+}).then(function(param) {
   // will not be triggered
 }).then(function(param) {
   // will not be triggered
