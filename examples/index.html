@@ -10,18 +10,23 @@
   <script>
     var aClick = Provent(document.querySelector('#a1'), 'mouseover')
 
+    aClick.then(function() {
+      console.log('separado---');
+    });
+
     aClick.then(function(param) {
       console.log(param);
       return true;
-    }).then(function(param) {
-      console.log(param);
-    }).then(function(param) {
+    }).then('#toRemove', function(param) {
+      console.log('toremove', param);
+    }).then('#toRemove', function(param) {
       console.log(param);
       return false;
     }).then(function(param) {
-      console.log(param);
+      console.log('last',param);
     });
 
+    aClick.reject('#toRemove');
   </script>
 </body>
 </html>

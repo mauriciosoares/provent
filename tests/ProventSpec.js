@@ -115,29 +115,36 @@ describe('Testing Provent', function() {
     expect(spy.callback).not.toHaveBeenCalled();
   });
 
-  it('should remove the listener from a specific promise when `Provent.reject` is used passing an id', function() {
+  it('should remove the listener from a specific promise when `Provent.reject` is used passing an id, the returned value should still be passed', function() {
     var link = addLink();
     var spy = {
       callback1: function() {},
-      callback2: function() {}
+      callback2: function() {},
+      callback3: function() {},
     };
 
     spyOn(spy, 'callback1');
     spyOn(spy, 'callback2');
+    spyOn(spy, 'callback3');
 
-    Provent(link, 'click').then('#id', function() {
+    var promise = Provent(link, 'click')
+
+    promise.then(function() {
       spy.callback1();
-    });
-
-    Provent(link, 'click').then(function() {
+      return true;
+    }).then('#id', function() {
       spy.callback2();
+    }).then(function(param) {
+      expect(param).toBe(true);
+      spy.callback3();
     });
 
-    Provent.reject('#id');
+    promise.reject('#id');
 
     click(link);
 
-    expect(spy.callback1).not.toHaveBeenCalled();
-    expect(spy.callback2).toHaveBeenCalled();
+    expect(spy.callback1).toHaveBeenCalled();
+    expect(spy.callback2).not.toHaveBeenCalled();
+    expect(spy.callback3).toHaveBeenCalled();
   });
 });

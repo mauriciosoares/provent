@@ -4,23 +4,36 @@ module.exports = function() {
 };
 
 },{}],2:[function(require,module,exports){
+module.exports = function(toCheck) {
+  return typeof toCheck === 'function';
+};
+
+},{}],3:[function(require,module,exports){
 module.exports = function toArray(arrayLike) {
   return Array.prototype.slice.call(arrayLike);
 }
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var i = require('./helpers/id');
+var isFunction = require('./helpers/isFunction');
 
 function Promise() {
   var callbacks = {};
   var callbackReturn;
   var reject;
 
-  function then(callback) {
+  function then(id, callback) {
+    if(isFunction(id)) {
+      callback = id;
+      id = false;
+    }
     var callbackId = (this.initial) ? i() : this;
 
     callbacks[callbackId] = callbacks[callbackId] || [];
-    callbacks[callbackId].push(callback);
+    callbacks[callbackId].push({
+      callback: callback,
+      id: id
+    });
 
     return {
       then: then.bind(callbackId),
@@ -28,20 +41,20 @@ function Promise() {
     };
   };
 
-  function trigger(params, context) {
+  function triggerAll(params, context) {
     for(id in callbacks) {
       callbacks[id].forEach(triggerCallback.bind(this, params, context));
     }
   };
 
   function triggerCallback(params, context, callback, index) {
-    callbackReturn = callback.apply(context, ((index > 0) ? [callbackReturn] : params));
+    callbackReturn = callback.callback.apply(context, ((index > 0) ? [callbackReturn] : params));
   }
 
 
   function setRejectContext(context) {
     reject = function(id) {
-      if(id) return;
+      if(id) return removeThenCallback(id);
 
       this.element.removeEventListener(this.event, this.handler);
       callbacks = {};
@@ -50,8 +63,19 @@ function Promise() {
     return reject;
   }
 
+  function removeThenCallback(id) {
+    for(cbId in callbacks) {
+      callbacks[cbId] = callbacks[cbId].reduce(function(newArray, item) {
+        if(id !== item.id) newArray.push(item);
+        return newArray;
+      }, []);
+    }
+
+    return true;
+  }
+
   return {
-    _trigger: trigger,
+    _triggerAll: triggerAll,
     reject: reject,
     setRejectContext: setRejectContext,
     then: then
@@ -61,7 +85,7 @@ function Promise() {
 
 module.exports = Promise;
 
-},{"./helpers/id":1}],4:[function(require,module,exports){
+},{"./helpers/id":1,"./helpers/isFunction":2}],5:[function(require,module,exports){
 (function (global){
 var Promise = require('./promise');
 var toArray = require('./helpers/toArray');
@@ -73,7 +97,7 @@ function Provent(element, event) {
   var handler;
 
   element.addEventListener(event, handler = function() {
-    promise._trigger.call(promise, toArray(arguments), this);
+    promise._triggerAll.call(promise, toArray(arguments), this);
   });
 
   return {
@@ -92,4 +116,4 @@ global.Provent = Provent;
 module.exports = Provent;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./helpers/toArray":2,"./promise":3}]},{},[4]);
+},{"./helpers/toArray":3,"./promise":4}]},{},[5]);

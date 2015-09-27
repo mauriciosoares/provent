@@ -1,15 +1,23 @@
 var i = require('./helpers/id');
+var isFunction = require('./helpers/isFunction');
 
 function Promise() {
   var callbacks = {};
   var callbackReturn;
   var reject;
 
-  function then(callback) {
+  function then(id, callback) {
+    if(isFunction(id)) {
+      callback = id;
+      id = false;
+    }
     var callbackId = (this.initial) ? i() : this;
 
     callbacks[callbackId] = callbacks[callbackId] || [];
-    callbacks[callbackId].push(callback);
+    callbacks[callbackId].push({
+      callback: callback,
+      id: id
+    });
 
     return {
       then: then.bind(callbackId),
@@ -17,20 +25,20 @@ function Promise() {
     };
   };
 
-  function trigger(params, context) {
+  function triggerAll(params, context) {
     for(id in callbacks) {
       callbacks[id].forEach(triggerCallback.bind(this, params, context));
     }
   };
 
   function triggerCallback(params, context, callback, index) {
-    callbackReturn = callback.apply(context, ((index > 0) ? [callbackReturn] : params));
+    callbackReturn = callback.callback.apply(context, ((index > 0) ? [callbackReturn] : params));
   }
 
 
   function setRejectContext(context) {
     reject = function(id) {
-      if(id) return;
+      if(id) return removeThenCallback(id);
 
       this.element.removeEventListener(this.event, this.handler);
       callbacks = {};
@@ -39,8 +47,19 @@ function Promise() {
     return reject;
   }
 
+  function removeThenCallback(id) {
+    for(cbId in callbacks) {
+      callbacks[cbId] = callbacks[cbId].reduce(function(newArray, item) {
+        if(id !== item.id) newArray.push(item);
+        return newArray;
+      }, []);
+    }
+
+    return true;
+  }
+
   return {
-    _trigger: trigger,
+    _triggerAll: triggerAll,
     reject: reject,
     setRejectContext: setRejectContext,
     then: then
