@@ -1,0 +1,22 @@
+{
+  "name": "provent",
+  "main": "dist/provent.js",
+  "version": "0.0.1",
+  "authors": [
+    "Mauricio Soares <m.soares2603@gmail.com>"
+  ],
+  "description": "Promises and Events... combined.",
+  "keywords": [
+    "promises",
+    "events",
+    "dom"
+  ],
+  "license": "Beerware",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
