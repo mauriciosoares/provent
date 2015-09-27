@@ -147,4 +147,31 @@ describe('Testing Provent', function() {
     expect(spy.callback2).not.toHaveBeenCalled();
     expect(spy.callback3).toHaveBeenCalled();
   });
+
+  it('should throw an error if no event is defined', function() {
+    var link = addLink();
+
+    expect(function() {
+      Provent(document.querySelector('a'))
+    }).toThrowError('You must choose an event');
+  });
+
+  it('should add the listener to multiple elements', function() {
+    var link1 = addLink();
+    var link2 = addLink();
+    var spy = {
+      callback1: function() {}
+    };
+
+    spyOn(spy, 'callback1');
+
+    Provent(document.querySelectorAll('a'), 'click').then(function() {
+      spy.callback1();
+    });
+
+    click(link1);
+    click(link2);
+
+    expect(spy.callback1.calls.count()).toEqual(2);
+  })
 });
