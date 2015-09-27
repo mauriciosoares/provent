@@ -2,6 +2,10 @@
   "name": "provent",
   "version": "0.0.1",
   "description": "Promises and Events... combined.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mauriciosoares/provent.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "karma start test.conf.js",
