@@ -9,7 +9,8 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start test.conf.js",
-    "watch": "watchify src/provent.js -o dist/provent.js -v"
+    "watch": "watchify src/provent.js -o dist/provent.js -v",
+    "build": "uglifyjs dist/provent.js -o dist/provent.min.js --source-map dist/provent.min.js.map"
   },
   "keywords": [
     "promises",
@@ -25,6 +26,7 @@
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
     "phantomjs": "^1.9.18",
+    "uglify-js": "^2.4.24",
     "watchify": "^3.4.0"
   }
 }
