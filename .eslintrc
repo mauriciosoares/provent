@@ -1,25 +1,26 @@
 {
-    "rules": {
-        "indent": [
-            2,
-            2
-        ],
-        "quotes": [
-            2,
-            "single"
-        ],
-        "linebreak-style": [
-            2,
-            "unix"
-        ],
-        "semi": [
-            2,
-            "always"
-        ]
-    },
-    "env": {
-        "node": true,
-        "browser": true
-    },
-    "extends": "eslint:recommended"
+  "rules": {
+    "indent": [2, 2],
+    "quotes": [2, "single"],
+    "linebreak-style": [ 2, "unix"],
+    "semi": [2, "always"],
+    "camelcase": 2,
+    "eqeqeq": [2, "smart"],
+    "no-undef": 2,
+    "dot-notation": 2,
+    "no-trailing-spaces": 2,
+    "no-unused-vars": 2,
+    "brace-style": [2, "1tbs", { "allowSingleLine": true }],
+    "no-alert": 2,
+    "no-console": 2,
+    "no-debugger": 2,
+    "object-curly-spacing": [2, "always"],
+    "space-after-keywords": [2, "never"],
+    "space-before-blocks": [2, "always"]
+  },
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "extends": "eslint:recommended"
 }
