@@ -5,3 +5,6 @@ before_install:
 - npm i | npm run build | npm test
 notifications:
   email: false
+branches:
+  only:
+    -master
