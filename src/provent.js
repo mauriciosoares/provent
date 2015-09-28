@@ -17,7 +17,7 @@ function Provent(elements, event) {
     element.addEventListener(event, handler = function() {
       promise._triggerAll.call(promise, toArray(arguments), this);
     });
-  })
+  });
 
   return {
     initial: true,

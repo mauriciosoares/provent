@@ -23,13 +23,14 @@ function Promise() {
       then: then.bind(callbackId),
       reject: reject
     };
-  };
+  }
 
   function triggerAll(params, context) {
+    var id;
     for(id in callbacks) {
       callbacks[id].forEach(triggerCallback.bind(this, params, context));
     }
-  };
+  }
 
   function triggerCallback(params, context, callback, index) {
     callbackReturn = callback.callback.apply(context, ((index > 0) ? [callbackReturn] : params));
@@ -51,6 +52,7 @@ function Promise() {
   }
 
   function removeThenCallback(id) {
+    var cbId;
     for(cbId in callbacks) {
       callbacks[cbId] = callbacks[cbId].reduce(function(newArray, item) {
         if(id !== item.id) newArray.push(item);
@@ -66,7 +68,7 @@ function Promise() {
     reject: reject,
     setRejectContext: setRejectContext,
     then: then
-  }
+  };
 }
 
 

@@ -10,7 +10,8 @@
   "scripts": {
     "test": "karma start test.conf.js",
     "watch": "watchify src/provent.js -o dist/provent.js -v",
-    "build": "uglifyjs dist/provent.js -o dist/provent.min.js --source-map dist/provent.min.js.map"
+    "build": "uglifyjs dist/provent.js -o dist/provent.min.js --source-map dist/provent.min.js.map",
+    "eslint": "eslint src/*.js src/**/*.js"
   },
   "keywords": [
     "promises",
