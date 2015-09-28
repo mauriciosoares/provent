@@ -1,4 +1,4 @@
-# Provent [![Coverage Status](https://img.shields.io/coveralls/mauriciosoares/provent.svg)](https://coveralls.io/r/mauriciosoares/provent)
+# Provent [![Build Status](https://travis-ci.org/mauriciosoares/provent.svg?branch=master)](https://travis-ci.org/mauriciosoares/provent) [![Coverage Status](https://img.shields.io/coveralls/mauriciosoares/provent.svg)](https://coveralls.io/r/mauriciosoares/provent)
 
 Promises and Events... combined.
 
