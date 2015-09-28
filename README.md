@@ -197,3 +197,9 @@ You need [NodeJS](http://nodejs.org/) installed on your machine
 
 1. Run `npm install`
 2. Run `npm test`
+
+## Browser Support
+
+| <img src="https://cloud.githubusercontent.com/assets/2321259/10144396/c4ae0e48-65f3-11e5-999a-2067aec38a86.png" width="48px" height="48px" alt="Chrome logo"> | <img src="https://cloud.githubusercontent.com/assets/2321259/10144401/d06d3d1c-65f3-11e5-852f-db9edc80a6b6.png" width="48px" height="48px" alt="Firefox logo"> | <img src="https://cloud.githubusercontent.com/assets/2321259/10144407/d99e6ee2-65f3-11e5-94e7-82d07cbc13d4.png" width="48px" height="48px" alt="Internet Explorer logo"> | <img src="https://cloud.githubusercontent.com/assets/2321259/10144413/e32494fa-65f3-11e5-981d-d13a9e47f4cb.png" width="48px" height="48px" alt="Opera logo"> | <img src="https://cloud.githubusercontent.com/assets/2321259/10144441/10ae1194-65f4-11e5-9757-a80d16ee50b7.png" width="48px" height="48px" alt="Safari logo"> |
+|:---:|:---:|:---:|:---:|:---:|
+| latest ✔ | latest ✔ | 9+ ✔ | latest ✔ | latest ✔ |
