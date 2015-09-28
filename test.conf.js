@@ -41,11 +41,6 @@ config.set({
     dir: 'coverage/'
   },
 
-  coverallsReporter: {
-    repoToken: 'Q9lBGvr5P1x4PtrLts1XtFMoOawSRlDOp'
-  },
-
-
   // test results reporter to use
   // possible values: 'dots', 'progress'
   // available reporters: https://npmjs.org/browse/keyword/karma-reporter
