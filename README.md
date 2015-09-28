@@ -1,4 +1,4 @@
-# Provent [![Build Status](https://travis-ci.org/mauriciosoares/provent.svg?branch=master)](https://travis-ci.org/mauriciosoares/provent) [![Coverage Status](https://img.shields.io/coveralls/mauriciosoares/provent.svg)](https://coveralls.io/r/mauriciosoares/provent)
+# Provent [![Build Status](https://travis-ci.org/mauriciosoares/provent.svg?branch=master)](https://travis-ci.org/mauriciosoares/provent) [![Coverage Status](https://img.shields.io/coveralls/mauriciosoares/provent.svg)](https://coveralls.io/r/mauriciosoares/provent) [![Code Climate](https://codeclimate.com/github/mauriciosoares/provent/badges/gpa.svg)](https://codeclimate.com/github/mauriciosoares/provent)
 
 Promises and Events... combined.
 
