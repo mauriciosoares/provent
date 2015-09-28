@@ -21,6 +21,7 @@
   "license": "Beerware",
   "devDependencies": {
     "browserify": "^11.2.0",
+    "eslint": "^1.5.1",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.10",
     "karma-commonjs": "0.0.13",
