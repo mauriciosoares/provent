@@ -30,6 +30,6 @@ function Provent(elements, event) {
   };
 }
 
-global.Provent = Provent;
+window.Provent = Provent;
 
 module.exports = Provent;
