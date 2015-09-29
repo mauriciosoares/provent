@@ -126,9 +126,6 @@ var _helpersToArray = require('./helpers/toArray');
 var _helpersToArray2 = _interopRequireDefault(_helpersToArray);
 
 function Provent(elements, event) {
-  var _arguments = arguments,
-      _this = this;
-
   if (!event) throw new Error('You must choose an event');
 
   var promise = (0, _promise2['default'])();
@@ -140,7 +137,7 @@ function Provent(elements, event) {
 
   elements.forEach(function (element) {
     element.addEventListener(event, handler = function () {
-      promise._triggerAll.call(promise, (0, _helpersToArray2['default'])(_arguments), _this);
+      promise._triggerAll.call(promise, (0, _helpersToArray2['default'])(arguments), this);
     });
   });
 
