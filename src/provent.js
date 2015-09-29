@@ -4,8 +4,8 @@ import toArray from './helpers/toArray';
 function Provent(elements, event) {
   if(!event) throw new Error('You must choose an event');
 
-  var promise = Promise();
-  var handler;
+  let promise = Promise();
+  let handler;
 
   if(elements.length) elements = toArray(elements);
   else elements = [elements];
@@ -13,8 +13,8 @@ function Provent(elements, event) {
 
   if(!elements.length) return;
 
-  elements.forEach(function(element) {
-    element.addEventListener(event, handler = function() {
+  elements.forEach((element) => {
+    element.addEventListener(event, handler = () => {
       promise._triggerAll.call(promise, toArray(arguments), this);
     });
   });
@@ -23,13 +23,13 @@ function Provent(elements, event) {
     initial: true,
     then: promise.then,
     reject: promise.setRejectContext({
-      elements: elements,
-      event: event,
-      handler: handler
+      elements,
+      event,
+      handler
     })
   };
 }
 
 window.Provent = Provent;
 
-module.exports = Provent;
+export default Provent;

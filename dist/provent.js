@@ -22,6 +22,10 @@ module.exports = function toArray(arrayLike) {
 },{}],4:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _helpersId = require('./helpers/id');
@@ -34,8 +38,8 @@ var _helpersIsFunction2 = _interopRequireDefault(_helpersIsFunction);
 
 function Promise() {
   var callbacks = {};
-  var callbackReturn;
-  var reject;
+  var callbackReturn = undefined;
+  var reject = undefined;
 
   function then(id, callback) {
     if ((0, _helpersIsFunction2['default'])(id)) {
@@ -56,9 +60,8 @@ function Promise() {
     };
   }
 
-  function triggerAll(params, context) {
-    var id;
-    for (id in callbacks) {
+  function _triggerAll(params, context) {
+    for (var id in callbacks) {
       callbacks[id].forEach(triggerCallback.bind(this, params, context));
     }
   }
@@ -69,11 +72,13 @@ function Promise() {
 
   function setRejectContext(context) {
     reject = (function (id) {
+      var _this = this;
+
       if (id) return removeThenCallback(id);
 
-      this.elements.forEach((function (element) {
-        element.removeEventListener(this.event, this.handler);
-      }).bind(this));
+      this.elements.forEach(function (element) {
+        element.removeEventListener(_this.event, _this.handler);
+      });
 
       callbacks = {};
     }).bind(context);
@@ -82,8 +87,7 @@ function Promise() {
   }
 
   function removeThenCallback(id) {
-    var cbId;
-    for (cbId in callbacks) {
+    for (var cbId in callbacks) {
       callbacks[cbId] = callbacks[cbId].reduce(function (newArray, item) {
         if (id !== item.id) newArray.push(item);
         return newArray;
@@ -94,17 +98,22 @@ function Promise() {
   }
 
   return {
-    _triggerAll: triggerAll,
+    _triggerAll: _triggerAll,
     reject: reject,
     setRejectContext: setRejectContext,
     then: then
   };
 }
 
-module.exports = Promise;
+exports['default'] = Promise;
+module.exports = exports['default'];
 
 },{"./helpers/id":1,"./helpers/isFunction":2}],5:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -117,10 +126,13 @@ var _helpersToArray = require('./helpers/toArray');
 var _helpersToArray2 = _interopRequireDefault(_helpersToArray);
 
 function Provent(elements, event) {
+  var _arguments = arguments,
+      _this = this;
+
   if (!event) throw new Error('You must choose an event');
 
   var promise = (0, _promise2['default'])();
-  var handler;
+  var handler = undefined;
 
   if (elements.length) elements = (0, _helpersToArray2['default'])(elements);else elements = [elements];
 
@@ -128,7 +140,7 @@ function Provent(elements, event) {
 
   elements.forEach(function (element) {
     element.addEventListener(event, handler = function () {
-      promise._triggerAll.call(promise, (0, _helpersToArray2['default'])(arguments), this);
+      promise._triggerAll.call(promise, (0, _helpersToArray2['default'])(_arguments), _this);
     });
   });
 
@@ -145,6 +157,7 @@ function Provent(elements, event) {
 
 window.Provent = Provent;
 
-module.exports = Provent;
+exports['default'] = Provent;
+module.exports = exports['default'];
 
 },{"./helpers/toArray":3,"./promise":4}]},{},[5]);
