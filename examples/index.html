@@ -6,7 +6,7 @@
 </head>
 <body>
   <a id="a1" href="#">link test</a>
-  <script src="../dist/provent.js"></script>
+  <script src="../dist/provent.min.js"></script>
   <script>
     var aClick = Provent(document.querySelectorAll('a'), 'click')
 
@@ -22,7 +22,7 @@
       console.log('last',param);
     });
 
-    aClick.reject();
+    // aClick.reject();
   </script>
 </body>
 </html>
