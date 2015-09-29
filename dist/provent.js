@@ -1,21 +1,36 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = function() {
-  return (+new Date * Math.random()).toString(36).substring(0,10);
+"use strict";
+
+module.exports = function () {
+  return (+new Date() * Math.random()).toString(36).substring(0, 10);
 };
 
 },{}],2:[function(require,module,exports){
-module.exports = function(toCheck) {
+'use strict';
+
+module.exports = function (toCheck) {
   return typeof toCheck === 'function';
 };
 
 },{}],3:[function(require,module,exports){
+"use strict";
+
 module.exports = function toArray(arrayLike) {
   return Array.prototype.slice.call(arrayLike);
-}
+};
 
 },{}],4:[function(require,module,exports){
-var i = require('./helpers/id');
-var isFunction = require('./helpers/isFunction');
+'use strict';
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _helpersId = require('./helpers/id');
+
+var _helpersId2 = _interopRequireDefault(_helpersId);
+
+var _helpersIsFunction = require('./helpers/isFunction');
+
+var _helpersIsFunction2 = _interopRequireDefault(_helpersIsFunction);
 
 function Promise() {
   var callbacks = {};
@@ -23,11 +38,11 @@ function Promise() {
   var reject;
 
   function then(id, callback) {
-    if(isFunction(id)) {
+    if ((0, _helpersIsFunction2['default'])(id)) {
       callback = id;
       id = false;
     }
-    var callbackId = (this.initial) ? i() : this;
+    var callbackId = this.initial ? (0, _helpersId2['default'])() : this;
 
     callbacks[callbackId] = callbacks[callbackId] || [];
     callbacks[callbackId].push({
@@ -39,37 +54,38 @@ function Promise() {
       then: then.bind(callbackId),
       reject: reject
     };
-  };
-
-  function triggerAll(params, context) {
-    for(id in callbacks) {
-      callbacks[id].forEach(triggerCallback.bind(this, params, context));
-    }
-  };
-
-  function triggerCallback(params, context, callback, index) {
-    callbackReturn = callback.callback.apply(context, ((index > 0) ? [callbackReturn] : params));
   }
 
+  function triggerAll(params, context) {
+    var id;
+    for (id in callbacks) {
+      callbacks[id].forEach(triggerCallback.bind(this, params, context));
+    }
+  }
+
+  function triggerCallback(params, context, callback, index) {
+    callbackReturn = callback.callback.apply(context, index > 0 ? [callbackReturn] : params);
+  }
 
   function setRejectContext(context) {
-    reject = function(id) {
-      if(id) return removeThenCallback(id);
+    reject = (function (id) {
+      if (id) return removeThenCallback(id);
 
-      this.elements.forEach(function(element) {
+      this.elements.forEach((function (element) {
         element.removeEventListener(this.event, this.handler);
-      }.bind(this));
+      }).bind(this));
 
       callbacks = {};
-    }.bind(context);
+    }).bind(context);
 
     return reject;
   }
 
   function removeThenCallback(id) {
-    for(cbId in callbacks) {
-      callbacks[cbId] = callbacks[cbId].reduce(function(newArray, item) {
-        if(id !== item.id) newArray.push(item);
+    var cbId;
+    for (cbId in callbacks) {
+      callbacks[cbId] = callbacks[cbId].reduce(function (newArray, item) {
+        if (id !== item.id) newArray.push(item);
         return newArray;
       }, []);
     }
@@ -82,33 +98,39 @@ function Promise() {
     reject: reject,
     setRejectContext: setRejectContext,
     then: then
-  }
+  };
 }
-
 
 module.exports = Promise;
 
 },{"./helpers/id":1,"./helpers/isFunction":2}],5:[function(require,module,exports){
-var Promise = require('./promise');
-var toArray = require('./helpers/toArray');
+'use strict';
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _promise = require('./promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
+var _helpersToArray = require('./helpers/toArray');
+
+var _helpersToArray2 = _interopRequireDefault(_helpersToArray);
 
 function Provent(elements, event) {
-  if(!event) throw new Error('You must choose an event');
+  if (!event) throw new Error('You must choose an event');
 
-  var promise = Promise();
+  var promise = (0, _promise2['default'])();
   var handler;
 
-  if(elements.length) elements = toArray(elements);
-  else elements = [elements];
+  if (elements.length) elements = (0, _helpersToArray2['default'])(elements);else elements = [elements];
 
+  if (!elements.length) return;
 
-  if(!elements.length) return;
-
-  elements.forEach(function(element) {
-    element.addEventListener(event, handler = function() {
-      promise._triggerAll.call(promise, toArray(arguments), this);
+  elements.forEach(function (element) {
+    element.addEventListener(event, handler = function () {
+      promise._triggerAll.call(promise, (0, _helpersToArray2['default'])(arguments), this);
     });
-  })
+  });
 
   return {
     initial: true,

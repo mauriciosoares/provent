@@ -1,5 +1,5 @@
-var Promise = require('./promise');
-var toArray = require('./helpers/toArray');
+import Promise from './promise';
+import toArray from './helpers/toArray';
 
 function Provent(elements, event) {
   if(!event) throw new Error('You must choose an event');

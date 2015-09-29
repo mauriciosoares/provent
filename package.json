@@ -8,10 +8,11 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "npm run eslint | karma start test.conf.js",
-    "watch": "watchify src/provent.js -o dist/provent.js -v",
+    "test": "npm run eslint | npm run karma",
+    "watch": "watchify src/provent.js -t babelify -o dist/provent.js -v",
     "build": "uglifyjs dist/provent.js -o dist/provent.min.js --source-map dist/provent.min.js.map",
-    "eslint": "eslint src/*.js src/**/*.js"
+    "eslint": "eslint src/*.js src/**/*.js",
+    "karma": "karma start karma.conf.js"
   },
   "keywords": [
     "promises",
@@ -21,11 +22,12 @@
   "author": "Mauricio Soares",
   "license": "Beerware",
   "devDependencies": {
-    "browserify": "^11.2.0",
+    "babel-eslint": "^4.1.3",
+    "babelify": "^6.3.0",
     "eslint": "^1.5.1",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.10",
-    "karma-commonjs": "0.0.13",
+    "karma-browserify": "^4.3.0",
     "karma-coverage": "^0.5.2",
     "karma-coveralls": "^1.1.2",
     "karma-jasmine": "^0.3.6",

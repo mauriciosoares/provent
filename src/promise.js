@@ -1,5 +1,5 @@
-var i = require('./helpers/id');
-var isFunction = require('./helpers/isFunction');
+import i from './helpers/id';
+import isFunction from './helpers/isFunction';
 
 function Promise() {
   var callbacks = {};
