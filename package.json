@@ -7,6 +7,7 @@
     "url": "https://github.com/mauriciosoares/provent.git"
   },
   "main": "dist/provent.js",
+  "browser": "src/provent.js",
   "scripts": {
     "test": "npm run eslint | npm run karma",
     "watch": "watchify src/provent.js -s Provent -o dist/provent.js -v",
