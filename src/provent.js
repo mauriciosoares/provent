@@ -30,6 +30,4 @@ function Provent(elements, event) {
   };
 }
 
-window.Provent = Provent;
-
 export default Provent;

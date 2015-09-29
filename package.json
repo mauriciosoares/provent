@@ -6,13 +6,16 @@
     "type": "git",
     "url": "https://github.com/mauriciosoares/provent.git"
   },
-  "main": "index.js",
+  "main": "dist/provent.js",
   "scripts": {
     "test": "npm run eslint | npm run karma",
-    "watch": "watchify src/provent.js -t babelify -o dist/provent.js -v",
+    "watch": "watchify src/provent.js -s Provent -o dist/provent.js -v",
     "build": "uglifyjs dist/provent.js -o dist/provent.min.js --source-map dist/provent.min.js.map",
     "eslint": "eslint src/*.js src/**/*.js",
     "karma": "karma start karma.conf.js"
+  },
+  "browserify": {
+    "transform": [["babelify"]]
   },
   "keywords": [
     "promises",
