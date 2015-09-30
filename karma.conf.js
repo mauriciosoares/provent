@@ -6,7 +6,7 @@ module.exports = function(karma) {
 
     files: [
       'tests/polyfills/*.js',
-      'src/**/*.js',
+      'dist/provent.js',
       'tests/*Spec.js'
     ],
 
